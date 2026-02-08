@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SteamShop | فروشگاه محصولات استیم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b101b;
+        --surface: rgba(18, 26, 42, 0.9);
+        --surface-strong: #111a2e;
+        --card: rgba(22, 33, 54, 0.92);
+        --stroke: rgba(255, 255, 255, 0.08);
+        --primary: #4f9cff;
+        --secondary: #ff7ad9;
+        --accent: #4cffd7;
+        --text: #e8ecf7;
+        --muted: #9aa7c2;
+        --warning: #ffcc4d;
+        --success: #35d67c;
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Vazirmatn", sans-serif;
+      }
+
+      body {
+        background: radial-gradient(circle at top right, #1b2750 0%, transparent 50%),
+          radial-gradient(circle at left, #1d3f3a 0%, transparent 45%), var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        padding-bottom: 3rem;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(1200px, 92%);
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(18px);
+        background: rgba(9, 14, 28, 0.75);
+        border-bottom: 1px solid var(--stroke);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem 0;
+        gap: 1rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 700;
+      }
+
+      .logo span {
+        font-size: 1.2rem;
+      }
+
+      .logo-badge {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        color: #0c1224;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.2rem;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .btn {
+        border: none;
+        padding: 0.65rem 1.2rem;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(79, 156, 255, 0.2);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), #2c5dff);
+        color: #0c1224;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--stroke);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2rem;
+        padding: 3.5rem 0 2.5rem;
+        align-items: center;
+      }
+
+      .hero-card {
+        background: var(--surface);
+        border: 1px solid var(--stroke);
+        border-radius: 24px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 3vw, 3rem);
+        line-height: 1.4;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        color: var(--muted);
+        margin-bottom: 1.8rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+
+      .hero-highlight {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .stat {
+        background: var(--card);
+        border-radius: 18px;
+        padding: 1.2rem;
+        border: 1px solid var(--stroke);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .stat span {
+        color: var(--muted);
+      }
+
+      .filters {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0 2rem;
+      }
+
+      .input {
+        background: var(--surface-strong);
+        border: 1px solid var(--stroke);
+        border-radius: 16px;
+        padding: 0.8rem 1rem;
+        color: var(--text);
+        width: 100%;
+      }
+
+      .chip-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+
+      .chip {
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid var(--stroke);
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+      }
+
+      .chip.active {
+        background: linear-gradient(135deg, rgba(79, 156, 255, 0.25), rgba(255, 122, 217, 0.25));
+        color: var(--text);
+        border-color: rgba(79, 156, 255, 0.5);
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+        margin: 1.5rem 0 1rem;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.4rem;
+      }
+
+      .product-card {
+        background: var(--card);
+        border: 1px solid var(--stroke);
+        border-radius: 20px;
+        padding: 1.3rem;
+        display: grid;
+        gap: 0.9rem;
+        transition: transform 0.2s ease, border 0.2s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(79, 156, 255, 0.5);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.2rem 0.7rem;
+        border-radius: 999px;
+        background: rgba(79, 156, 255, 0.15);
+        color: var(--primary);
+        font-size: 0.75rem;
+      }
+
+      .product-title {
+        font-weight: 600;
+        font-size: 1.05rem;
+      }
+
+      .price {
+        display: flex;
+        align-items: baseline;
+        gap: 0.4rem;
+      }
+
+      .price strong {
+        font-size: 1.3rem;
+      }
+
+      .price span {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .product-actions {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+      }
+
+      .product-actions button {
+        flex: 1;
+      }
+
+      .cart {
+        background: var(--surface);
+        border: 1px solid var(--stroke);
+        border-radius: 24px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 110px;
+      }
+
+      .cart h3 {
+        margin-bottom: 1rem;
+      }
+
+      .cart-items {
+        display: grid;
+        gap: 0.8rem;
+        max-height: 260px;
+        overflow-y: auto;
+        padding-left: 0.2rem;
+      }
+
+      .cart-item {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        padding: 0.7rem;
+        border: 1px solid var(--stroke);
+        display: flex;
+        justify-content: space-between;
+        gap: 0.6rem;
+      }
+
+      .cart-item span {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.2rem;
+        font-weight: 600;
+      }
+
+      .checkout {
+        margin-top: 1rem;
+        width: 100%;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 2rem;
+      }
+
+      .features {
+        margin-top: 2.5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+
+      .feature {
+        background: var(--surface-strong);
+        border: 1px solid var(--stroke);
+        padding: 1.2rem;
+        border-radius: 18px;
+      }
+
+      .feature h4 {
+        margin-bottom: 0.4rem;
+      }
+
+      footer {
+        margin-top: 3rem;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 960px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .cart {
+          position: static;
+        }
+
+        .nav-links {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="logo">
+          <div class="logo-badge">S</div>
+          <span>SteamShop</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#products">محصولات</a>
+          <a href="#deals">پیشنهاد ویژه</a>
+          <a href="#support">پشتیبانی</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn btn-ghost">ورود</button>
+          <button class="btn btn-primary">ثبت سفارش سریع</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-card">
+          <h1>خرید سریع بازی، گیفت کارت و والت استیم با تحویل آنی</h1>
+          <p>
+            تجربه یک فروشگاه حرفه‌ای با موجودی لحظه‌ای، پشتیبانی ۲۴/۷ و امکان
+            پرداخت امن. همه چیز برای یک خرید مطمئن آماده است.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary">شروع خرید</button>
+            <button class="btn btn-ghost">مشاهده آموزش استفاده</button>
+          </div>
+        </div>
+        <div class="hero-highlight">
+          <div class="stat">
+            <strong>+۱۲,۴۰۰</strong>
+            <span>سفارش موفق تحویل‌شده</span>
+          </div>
+          <div class="stat">
+            <strong>۹۹.۸٪</strong>
+            <span>رضایت مشتریان از پشتیبانی</span>
+          </div>
+          <div class="stat">
+            <strong>کمتر از ۵ دقیقه</strong>
+            <span>میانگین زمان تحویل دیجیتال</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="products" class="layout">
+        <div>
+          <h2 class="section-title">محصولات ویژه استیم</h2>
+          <div class="filters">
+            <input
+              id="searchInput"
+              class="input"
+              type="text"
+              placeholder="جستجو بین بازی‌ها، والت و کلیدها..."
+            />
+            <div class="chip-group" id="categoryChips"></div>
+          </div>
+          <div class="product-grid" id="productGrid"></div>
+
+          <h2 id="deals" class="section-title">امکانات فروشگاه</h2>
+          <div class="features">
+            <div class="feature">
+              <h4>تحویل آنی</h4>
+              <p>کدها بلافاصله بعد از پرداخت در پنل شما فعال می‌شوند.</p>
+            </div>
+            <div class="feature">
+              <h4>گارانتی تعویض</h4>
+              <p>در صورت بروز مشکل با کد، تعویض یا بازگشت وجه انجام می‌شود.</p>
+            </div>
+            <div class="feature">
+              <h4>پشتیبانی هوشمند</h4>
+              <p>پشتیبانی چت آنلاین همراه با راهنمای قدم‌به‌قدم فعال است.</p>
+            </div>
+            <div class="feature">
+              <h4>تنوع محصولات</h4>
+              <p>از گیفت کارت استیم تا کلید بازی‌های محبوب با تخفیف روزانه.</p>
+            </div>
+          </div>
+        </div>
+        <aside class="cart">
+          <h3>سبد خرید شما</h3>
+          <div class="cart-items" id="cartItems"></div>
+          <div class="cart-total">
+            <span>جمع کل</span>
+            <span id="cartTotal">۰ تومان</span>
+          </div>
+          <button class="btn btn-primary checkout">ثبت نهایی سفارش</button>
+          <p id="support" style="margin-top: 1rem; color: var(--muted); font-size: 0.85rem;">
+            نیاز به کمک دارید؟ چت آنلاین برای راهنمایی فعال است.
+          </p>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <p>SteamShop یک نمونه UI برای فروش محصولات دیجیتال استیم است.</p>
+    </footer>
+
+    <script>
+      const products = [
+        {
+          id: 1,
+          name: "Steam Wallet ۱۰ دلاری",
+          price: 615000,
+          category: "والت",
+          badge: "تحویل آنی",
+          description: "مناسب برای شارژ حساب استیم و خرید آیتم."
+        },
+        {
+          id: 2,
+          name: "Steam Wallet ۵۰ دلاری",
+          price: 2960000,
+          category: "والت",
+          badge: "پرفروش",
+          description: "بالاترین صرفه خرید برای گیمرهای حرفه‌ای."
+        },
+        {
+          id: 3,
+          name: "کلید بازی Elden Ring",
+          price: 2150000,
+          category: "کلید بازی",
+          badge: "تخفیف ویژه",
+          description: "فعال‌سازی فوری روی اکانت استیم."
+        },
+        {
+          id: 4,
+          name: "کلید بازی Counter-Strike 2 Prime",
+          price: 980000,
+          category: "کلید بازی",
+          badge: "نسخه پرمیوم",
+          description: "دسترسی به مسابقات رنک با مزایای ویژه."
+        },
+        {
+          id: 5,
+          name: "گیفت کارت ۲۰ دلاری",
+          price: 1220000,
+          category: "گیفت کارت",
+          badge: "اعتبار بین‌المللی",
+          description: "قابل استفاده برای هدیه دادن به دوستان."
+        },
+        {
+          id: 6,
+          name: "باندل بازی‌ها + تخفیف تابستانه",
+          price: 3680000,
+          category: "باندل",
+          badge: "پیشنهاد محدود",
+          description: "۴ بازی محبوب با تخفیف مخصوص جشنواره."
+        },
+        {
+          id: 7,
+          name: "کیف پول استیم ریجن ترکیه",
+          price: 850000,
+          category: "والت",
+          badge: "ارزش خرید بالا",
+          description: "مناسب برای خریدهای ریجنال با قیمت اقتصادی."
+        },
+        {
+          id: 8,
+          name: "کلید بازی Baldur's Gate 3",
+          price: 2950000,
+          category: "کلید بازی",
+          badge: "نسخه کامل",
+          description: "دارای محتوای کامل و پشتیبانی آپدیت."
+        }
+      ];
+
+      const categories = ["همه", ...new Set(products.map((item) => item.category))];
+      const cart = new Map();
+
+      const productGrid = document.getElementById("productGrid");
+      const searchInput = document.getElementById("searchInput");
+      const categoryChips = document.getElementById("categoryChips");
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+
+      const formatPrice = (price) =>
+        price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " تومان";
+
+      const renderProducts = (items) => {
+        productGrid.innerHTML = items
+          .map(
+            (product) => `
+          <div class="product-card">
+            <span class="badge">${product.badge}</span>
+            <div class="product-title">${product.name}</div>
+            <p style="color: var(--muted); font-size: 0.85rem;">${product.description}</p>
+            <div class="price">
+              <strong>${formatPrice(product.price)}</strong>
+              <span>تحویل دیجیتال</span>
+            </div>
+            <div class="product-actions">
+              <button class="btn btn-primary" onclick="addToCart(${product.id})">
+                افزودن به سبد
+              </button>
+              <button class="btn btn-ghost">جزئیات</button>
+            </div>
+          </div>`
+          )
+          .join("");
+      };
+
+      const renderChips = () => {
+        categoryChips.innerHTML = categories
+          .map(
+            (category, index) => `
+          <button class="chip ${index === 0 ? "active" : ""}" onclick="filterByCategory('${category}')">
+            ${category}
+          </button>`
+          )
+          .join("");
+      };
+
+      const renderCart = () => {
+        if (cart.size === 0) {
+          cartItems.innerHTML = `
+            <div class="cart-item">
+              <div>
+                <strong>سبد خرید خالی است</strong>
+                <span>محصولات محبوب را اضافه کنید.</span>
+              </div>
+            </div>`;
+        } else {
+          cartItems.innerHTML = Array.from(cart.values())
+            .map(
+              (item) => `
+            <div class="cart-item">
+              <div>
+                <strong>${item.name}</strong>
+                <span>${item.quantity} عدد</span>
+              </div>
+              <div>
+                <strong>${formatPrice(item.price * item.quantity)}</strong>
+              </div>
+            </div>`
+            )
+            .join("");
+        }
+
+        const total = Array.from(cart.values()).reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        cartTotal.textContent = formatPrice(total);
+      };
+
+      const updateFilters = () => {
+        const query = searchInput.value.trim().toLowerCase();
+        const activeChip = document.querySelector(".chip.active");
+        const activeCategory = activeChip ? activeChip.textContent.trim() : "همه";
+
+        const filtered = products.filter((product) => {
+          const matchesQuery =
+            product.name.toLowerCase().includes(query) ||
+            product.description.toLowerCase().includes(query);
+          const matchesCategory =
+            activeCategory === "همه" || product.category === activeCategory;
+          return matchesQuery && matchesCategory;
+        });
+
+        renderProducts(filtered);
+      };
+
+      window.addToCart = (id) => {
+        const product = products.find((item) => item.id === id);
+        if (!product) return;
+        const existing = cart.get(id);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.set(id, { ...product, quantity: 1 });
+        }
+        renderCart();
+      };
+
+      window.filterByCategory = (category) => {
+        document.querySelectorAll(".chip").forEach((chip) => {
+          chip.classList.toggle("active", chip.textContent.trim() === category);
+        });
+        updateFilters();
+      };
+
+      searchInput.addEventListener("input", updateFilters);
+
+      renderChips();
+      renderProducts(products);
+      renderCart();
+    </script>
+  </body>
+</html>
